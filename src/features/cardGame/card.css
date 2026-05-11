@@ -1,5 +1,5 @@
 .cards {
-  max-width: 80%;
+  max-width: 1300px;
   margin: 2.5rem auto;
   display: grid;
   grid-template: auto / repeat(auto-fit, minmax(200px, max-content));
