@@ -6,11 +6,7 @@ export default function Card(props) {
       key={crypto.randomUUID()}
       onClick={props.handleOnClick}
     >
-      <img
-        src={card.imageUrl}
-        alt="image of disney character"
-        className="card--img"
-      />
+      <img src={card.imageUrl} alt="disney character" className="card--img" />
       <h3 className="card--name">{card.name}</h3>
     </div>
   ));
