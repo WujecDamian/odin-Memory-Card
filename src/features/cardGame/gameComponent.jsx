@@ -1,6 +1,7 @@
 import { use, useEffect, useState } from "react";
 import Card from "./card.jsx";
 import Scoreboard from "./scoreboard.jsx";
+import LoadingScreen from "./loading.jsx";
 
 export default function GameComponent() {
   const [cardsObjects, setCardsObjects] = useState([]);
@@ -11,12 +12,15 @@ export default function GameComponent() {
   const [emote, setEmote] = useState("");
   //gamelogic
   const [clicked, setClicked] = useState([]);
+  //loadingScreen
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     let ignore = false; // <- prevent mount-unmount-mount from strict mode
     let tempCharacters = [];
 
     async function getData() {
+      setLoading(true);
       if (!ignore) {
         for (let page = 1; page <= 7; page = page + 2) {
           const url = "https://api.disneyapi.dev/character?page=" + page;
@@ -39,6 +43,7 @@ export default function GameComponent() {
       );
       let characters = charactersWithImages;
       getRandomCharacters(characters);
+      setLoading(false);
     });
     return () => {
       ignore = true;
@@ -97,6 +102,7 @@ export default function GameComponent() {
   }
   return (
     <>
+      <LoadingScreen loading={loading}></LoadingScreen>
       <Scoreboard
         score={score}
         bestScore={bestScore}
