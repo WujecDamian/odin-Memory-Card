@@ -1,6 +1,6 @@
 .cards {
   max-width: 80%;
-  margin: 5rem auto;
+  margin: 2.5rem auto;
   display: grid;
   grid-template: auto / repeat(auto-fit, minmax(200px, max-content));
   place-content: center;
