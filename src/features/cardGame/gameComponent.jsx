@@ -17,8 +17,8 @@ export default function GameComponent() {
           if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
           }
-
-          characters.push(await response.json());
+          let tempCharacters = await response.json();
+          characters.push(tempCharacters);
         } catch (error) {
           console.error(error.message);
         }
@@ -31,6 +31,7 @@ export default function GameComponent() {
   }, []);
 
   function getRandomCharacters() {
+    console.table(characters);
     if (characters !== []) {
       let newCharArr = [];
       for (let i = 0; i < 12; i++) {
