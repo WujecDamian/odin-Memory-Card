@@ -1,6 +1,7 @@
 .scoreboard {
   display: flex;
   margin-top: 1rem;
+  color: rgb(202, 205, 255);
   gap: 1rem;
   align-items: center;
   justify-content: center;
