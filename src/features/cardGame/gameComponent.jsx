@@ -7,9 +7,8 @@ export default function GameComponent() {
   const [seed, setSeed] = useState(1);
 
   useEffect(() => {
-    let ignore = false; // <- prevent mount-unmount-mount from strictmode
+    let ignore = false; // <- prevent mount-unmount-mount from strict mode
     let tempCharacters = [];
-    //fetch data, create objects on component mount
 
     async function getData() {
       if (!ignore) {
@@ -54,6 +53,7 @@ export default function GameComponent() {
   }
   function changeSeed() {
     setSeed(seed + 1);
+    //! TODO: Set score to 0 (or call newGame function)
   }
   function shuffleArray() {
     let newArr = cardsObjects.sort(() => Math.random() - 0.5);
