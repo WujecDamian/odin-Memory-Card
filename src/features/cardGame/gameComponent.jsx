@@ -5,6 +5,7 @@ import Scoreboard from "./scoreboard.jsx";
 export default function GameComponent() {
   const [cardsObjects, setCardsObjects] = useState([]);
   let characters = [];
+
   useEffect(() => {
     //fetch data, create objects on component mount
 
@@ -62,7 +63,7 @@ export default function GameComponent() {
   return (
     <>
       <Scoreboard></Scoreboard>
-      <Card></Card>
+      <Card cardsObjects={cardsObjects}></Card>
       <button onClick={getRandomCharacters}>Roll characters</button>
     </>
   );
