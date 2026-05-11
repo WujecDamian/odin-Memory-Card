@@ -5,6 +5,9 @@ import Scoreboard from "./scoreboard.jsx";
 export default function GameComponent() {
   const [cardsObjects, setCardsObjects] = useState([]);
   const [seed, setSeed] = useState(1);
+  //scoreboard
+  const [score, setScore] = useState(0);
+  const [bestScore, setBestScore] = useState(0);
 
   useEffect(() => {
     let ignore = false; // <- prevent mount-unmount-mount from strict mode
@@ -61,7 +64,7 @@ export default function GameComponent() {
   }
   return (
     <>
-      <Scoreboard></Scoreboard>
+      <Scoreboard score={score} bestScore={bestScore}></Scoreboard>
       <Card cardsObjects={cardsObjects} handleOnClick={shuffleArray}></Card>
       <button onClick={changeSeed}>Roll characters</button>
     </>
