@@ -18,6 +18,26 @@ export default function GameComponent() {
     { name: "", src: "", hasBeenClicked: false },
   ];
 
+  useEffect(() => {
+    //fetch data, create objects on component mount
+
+    async function getData() {
+      const url = "https://api.disneyapi.dev/character";
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`Response status: ${response.status}`);
+        }
+
+        const characters = await response.json();
+        console.table(characters);
+      } catch (error) {
+        console.error(error.message);
+      }
+    }
+    getData();
+  }, []);
+
   function shuffleArray() {
     let i = Array.length,
       random,
@@ -38,4 +58,3 @@ export default function GameComponent() {
     </>
   );
 }
-is;
