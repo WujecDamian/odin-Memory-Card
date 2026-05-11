@@ -13,7 +13,7 @@ export default function GameComponent() {
 
     async function getData() {
       if (!ignore) {
-        for (let page = 1; page <= 3; page++) {
+        for (let page = 1; page <= 7; page = page + 2) {
           const url = "https://api.disneyapi.dev/character?page=" + page;
           try {
             const response = await fetch(url);
@@ -32,7 +32,7 @@ export default function GameComponent() {
       let charactersWithImages = tempCharacters.filter(
         (character) => character.imageUrl != "",
       );
-      let characters = tempCharacters;
+      let characters = charactersWithImages;
       getRandomCharacters(characters);
     });
     return () => {
@@ -45,7 +45,7 @@ export default function GameComponent() {
     let newCharArr = [];
     for (let i = 0; i < 12; i++) {
       newCharArr.push(
-        array[Math.floor(Math.random() * 2)].data[
+        array[Math.floor(Math.random() * 3)].data[
           Math.floor(Math.random() * 48)
         ],
       );
@@ -54,25 +54,15 @@ export default function GameComponent() {
   }
   function changeSeed() {
     setSeed(seed + 1);
-    console.table(cardsObjects);
   }
   function shuffleArray() {
-    let i = Array.length,
-      random,
-      temp;
-    while (i > 1) {
-      random = Math.floor(Math.random() * (i + 1));
-      temp = cardsObjects[random];
-      cardsObjects[random] = cardsObjects[i];
-      cardsObjects[i] = temp;
-      i--;
-    }
+    let newArr = cardsObjects.sort(() => Math.random() - 0.5);
+    setCardsObjects([...newArr]);
   }
-
   return (
     <>
       <Scoreboard></Scoreboard>
-      <Card cardsObjects={cardsObjects}></Card>
+      <Card cardsObjects={cardsObjects} handleOnClick={shuffleArray}></Card>
       <button onClick={changeSeed}>Roll characters</button>
     </>
   );
