@@ -1,0 +1,7 @@
+.scoreboard {
+  display: flex;
+  margin-top: 1rem;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
