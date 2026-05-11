@@ -1,0 +1,19 @@
+.cards {
+  display: grid;
+  grid-template: auto / 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 1rem;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  .card--name {
+    font-size: 1rem;
+    color: white;
+    text-align: center;
+  }
+  .card--img {
+    aspect-ratio: 1/1;
+    object-fit: cover;
+  }
+}
