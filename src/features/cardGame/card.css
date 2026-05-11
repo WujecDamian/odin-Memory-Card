@@ -11,6 +11,11 @@
   flex-direction: column;
   cursor: pointer;
   max-width: 200px;
+  filter: brightness(0.95);
+
+  transition:
+    transform 0.15s,
+    filter 0.15s ease-out;
   .card--name {
     font-size: 1rem;
     color: white;
@@ -20,5 +25,11 @@
     aspect-ratio: 1/1;
     object-fit: cover;
     width: 200px;
+    border-radius: 0.5rem;
   }
+}
+.card:hover,
+.card:focus {
+  transform: scale(1.05);
+  filter: brightness(1.05);
 }
