@@ -1,53 +1,61 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import Card from "./card.jsx";
 import Scoreboard from "./scoreboard.jsx";
 
 export default function GameComponent() {
   const [cardsObjects, setCardsObjects] = useState([]);
-  let characters = [];
+  const [seed, setSeed] = useState(1);
 
   useEffect(() => {
+    let ignore = false; // <- prevent mount-unmount-mount from strictmode
+    let tempCharacters = [];
     //fetch data, create objects on component mount
 
     async function getData() {
-      for (let page = 1; page <= 3; page++) {
-        const url = "https://api.disneyapi.dev/character?page=" + page;
-        try {
-          const response = await fetch(url);
-          if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
+      if (!ignore) {
+        for (let page = 1; page <= 3; page++) {
+          const url = "https://api.disneyapi.dev/character?page=" + page;
+          try {
+            const response = await fetch(url);
+            if (!response.ok) {
+              throw new Error(`Response status: ${response.status}`);
+            }
+            let result = await response.json();
+            tempCharacters.push(result);
+          } catch (error) {
+            console.error(error.message);
           }
-          let tempCharacters = await response.json();
-          characters.push(tempCharacters);
-        } catch (error) {
-          console.error(error.message);
         }
       }
     }
     getData().then(() => {
-      console.table(characters);
-      getRandomCharacters();
+      let charactersWithImages = tempCharacters.filter(
+        (character) => character.imageUrl != "",
+      );
+      let characters = tempCharacters;
+      getRandomCharacters(characters);
     });
-  }, []);
+    return () => {
+      ignore = true;
+      tempCharacters = [];
+    };
+  }, [seed]);
 
-  function getRandomCharacters() {
-    console.table(characters);
-    if (characters !== []) {
-      let newCharArr = [];
-      for (let i = 0; i < 12; i++) {
-        newCharArr.push(
-          characters[Math.floor(Math.random() * 5)].data[
-            Math.floor(Math.random() * 48)
-          ],
-        );
-      }
-      console.table(newCharArr);
-      setCardsObjects(newCharArr);
-    } else {
-      console.error("Wait for fetch to finish.");
+  function getRandomCharacters(array) {
+    let newCharArr = [];
+    for (let i = 0; i < 12; i++) {
+      newCharArr.push(
+        array[Math.floor(Math.random() * 2)].data[
+          Math.floor(Math.random() * 48)
+        ],
+      );
     }
+    setCardsObjects(newCharArr);
   }
-
+  function changeSeed() {
+    setSeed(seed + 1);
+    console.table(cardsObjects);
+  }
   function shuffleArray() {
     let i = Array.length,
       random,
@@ -65,7 +73,7 @@ export default function GameComponent() {
     <>
       <Scoreboard></Scoreboard>
       <Card cardsObjects={cardsObjects}></Card>
-      <button onClick={getRandomCharacters}>Roll characters</button>
+      <button onClick={changeSeed}>Roll characters</button>
     </>
   );
 }
