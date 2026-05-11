@@ -1,7 +1,11 @@
 export default function Card(props) {
   const cards = props.cardsObjects;
   const cardDivs = cards.map((card) => (
-    <div className="card" key={card._id}>
+    <div
+      className="card"
+      key={crypto.randomUUID()}
+      onClick={props.handleOnClick}
+    >
       <img
         src={card.imageUrl}
         alt="image of disney character"
