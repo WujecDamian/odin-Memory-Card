@@ -1,16 +1,29 @@
-# React + Vite
+# Memory Card Game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple memory game built as part of The Odin Project curriculum.
 
-Currently, two official plugins are available:
+## Live Demo
+Play it here:  
+https://5x-odin-memory-game.netlify.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Repository
+Source code:  
+https://github.com/WujecDamian/odin-Memory-Card
 
-## React Compiler
+## About
+The goal of the game is to click on cards without clicking the same one twice.  
+Each click reshuffles the cards, so you have to rely on memory rather than position.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+This project was mainly about practicing:
+- React fundamentals
+- State management
+- Handling user interactions
+- Working with external data
 
-## Expanding the ESLint configuration
+## Project Assignment
+https://www.theodinproject.com/lessons/node-path-react-new-memory-card
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tech Stack
+- React
+- JavaScript
+- CSS
