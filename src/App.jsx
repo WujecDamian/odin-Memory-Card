@@ -4,6 +4,7 @@ import viteLogo from "./assets/vite.svg";
 import heroImg from "./assets/hero.png";
 import GameComponent from "./features/cardGame/gameComponent.jsx";
 import "./App.css";
+import "./features/cardGame/card.css";
 
 function App() {
   return (
