@@ -8,6 +8,8 @@ export default function GameComponent() {
   //scoreboard
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
+  //gamelogic
+  const [clicked, setClicked] = useState([,]);
 
   useEffect(() => {
     let ignore = false; // <- prevent mount-unmount-mount from strict mode
@@ -62,10 +64,19 @@ export default function GameComponent() {
     let newArr = cardsObjects.sort(() => Math.random() - 0.5);
     setCardsObjects([...newArr]);
   }
+  function handleOnClick(card) {
+    shuffleArray();
+    let id = card._id;
+    if (clicked.includes(id)) {
+      console.log("lost");
+    } else {
+      setClicked(id);
+    }
+  }
   return (
     <>
       <Scoreboard score={score} bestScore={bestScore}></Scoreboard>
-      <Card cardsObjects={cardsObjects} handleOnClick={shuffleArray}></Card>
+      <Card cardsObjects={cardsObjects} handleOnClick={handleOnClick}></Card>
       <button onClick={changeSeed}>Roll characters</button>
     </>
   );
