@@ -8,8 +8,9 @@ export default function GameComponent() {
   //scoreboard
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
+  const [emote, setEmote] = useState("");
   //gamelogic
-  const [clicked, setClicked] = useState([,]);
+  const [clicked, setClicked] = useState([]);
 
   useEffect(() => {
     let ignore = false; // <- prevent mount-unmount-mount from strict mode
@@ -68,16 +69,40 @@ export default function GameComponent() {
     shuffleArray();
     let id = card._id;
     if (clicked.includes(id)) {
-      console.log("lost");
+      setScore(0);
+      setClicked([]);
+      setSeed(seed + 1);
     } else {
-      setClicked(id);
+      setClicked([...clicked, id]);
+      setScore(score + 1);
+      if (score + 1 > bestScore) {
+        setBestScore(score + 1);
+      }
+      if (bestScore + 1 > 0 && bestScore + 1 <= 3) {
+        setEmote(" 🫵🤣");
+      }
+      if (bestScore + 1 > 3 && bestScore + 1 < 7) {
+        setEmote(" 🤙");
+      }
+      if (bestScore + 1 >= 7 && bestScore + 1 < 10) {
+        setEmote(" 🙉");
+      }
+      if (bestScore + 1 >= 10 && bestScore + 1 < 12) {
+        setEmote(" 🧠");
+      }
+      if (bestScore + 1 === 12) {
+        setEmote(" 👑");
+      }
     }
   }
   return (
     <>
-      <Scoreboard score={score} bestScore={bestScore}></Scoreboard>
+      <Scoreboard
+        score={score}
+        bestScore={bestScore}
+        emote={emote}
+      ></Scoreboard>
       <Card cardsObjects={cardsObjects} handleOnClick={handleOnClick}></Card>
-      <button onClick={changeSeed}>Roll characters</button>
     </>
   );
 }
