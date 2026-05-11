@@ -1,8 +1,14 @@
 export default function Card(props) {
-  return (
-    <section className="card">
-      <span>Img</span>
-      <span>Name:</span>
-    </section>
-  );
+  const cards = props.cardsObjects;
+  const cardDivs = cards.map((card) => (
+    <div className="card" key={card._id}>
+      <img
+        src={card.imageUrl}
+        alt="image of disney character"
+        className="card--img"
+      />
+      <h3 className="card--name">{card.name}</h3>
+    </div>
+  ));
+  return <section className="cards">{cardDivs}</section>;
 }
