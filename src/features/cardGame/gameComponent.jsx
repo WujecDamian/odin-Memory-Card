@@ -3,40 +3,47 @@ import Card from "./card.jsx";
 import Scoreboard from "./scoreboard.jsx";
 
 export default function GameComponent() {
-  const [cardsObjects, setCardsObjects] = [
-    { name: "", src: "", hasBeenClicked: false },
-    { name: "", src: "", hasBeenClicked: false },
-    { name: "", src: "", hasBeenClicked: false },
-    { name: "", src: "", hasBeenClicked: false },
-    { name: "", src: "", hasBeenClicked: false },
-    { name: "", src: "", hasBeenClicked: false },
-    { name: "", src: "", hasBeenClicked: false },
-    { name: "", src: "", hasBeenClicked: false },
-    { name: "", src: "", hasBeenClicked: false },
-    { name: "", src: "", hasBeenClicked: false },
-    { name: "", src: "", hasBeenClicked: false },
-    { name: "", src: "", hasBeenClicked: false },
-  ];
-
+  const [cardsObjects, setCardsObjects] = [];
+  let characters = [];
   useEffect(() => {
     //fetch data, create objects on component mount
 
     async function getData() {
-      const url = "https://api.disneyapi.dev/character";
-      try {
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error(`Response status: ${response.status}`);
-        }
+      for (let page = 1; page <= 3; page++) {
+        const url = "https://api.disneyapi.dev/character?page=" + page;
+        try {
+          const response = await fetch(url);
+          if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+          }
 
-        const characters = await response.json();
-        console.table(characters);
-      } catch (error) {
-        console.error(error.message);
+          characters.push(await response.json());
+        } catch (error) {
+          console.error(error.message);
+        }
       }
     }
-    getData();
+    getData().then(() => {
+      console.table(characters);
+      getRandomCharacters();
+    });
   }, []);
+
+  function getRandomCharacters() {
+    if (characters !== []) {
+      let newCharArr = [];
+      for (let i = 0; i < 12; i++) {
+        newCharArr.push(
+          characters[Math.floor(Math.random() * 5)].data[
+            Math.floor(Math.random() * 49)
+          ],
+        );
+      }
+      console.table(newCharArr);
+    } else {
+      console.error("Wait for fetch to finish.");
+    }
+  }
 
   function shuffleArray() {
     let i = Array.length,
@@ -55,6 +62,7 @@ export default function GameComponent() {
     <>
       <Scoreboard></Scoreboard>
       <Card></Card>
+      <button onClick={getRandomCharacters}>Roll characters</button>
     </>
   );
 }
