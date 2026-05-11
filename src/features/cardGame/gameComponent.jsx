@@ -1,9 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Card from "./card.jsx";
 import Scoreboard from "./scoreboard.jsx";
 
 export default function GameComponent() {
-  const [cardsObjects, setCardsObjects] = [];
+  const [cardsObjects, setCardsObjects] = useState([]);
   let characters = [];
   useEffect(() => {
     //fetch data, create objects on component mount
@@ -35,11 +35,12 @@ export default function GameComponent() {
       for (let i = 0; i < 12; i++) {
         newCharArr.push(
           characters[Math.floor(Math.random() * 5)].data[
-            Math.floor(Math.random() * 49)
+            Math.floor(Math.random() * 48)
           ],
         );
       }
       console.table(newCharArr);
+      setCardsObjects(newCharArr);
     } else {
       console.error("Wait for fetch to finish.");
     }
