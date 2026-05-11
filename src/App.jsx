@@ -6,6 +6,7 @@ import GameComponent from "./features/cardGame/gameComponent.jsx";
 import "./App.css";
 import "./features/cardGame/card.css";
 import "./features/cardGame/scoreboard.css";
+import "./features/cardGame/loading.css";
 
 function App() {
   return (
