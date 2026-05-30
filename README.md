@@ -26,4 +26,4 @@ https://www.theodinproject.com/lessons/node-path-react-new-memory-card
 ## Tech Stack
 - React
 - JavaScript
-- CSS 2.0
+- CSS 
